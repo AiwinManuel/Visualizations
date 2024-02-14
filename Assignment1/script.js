@@ -245,13 +245,14 @@ donutData.forEach(function(d, i) {
 });
 
 //stack data
+// Define your stack data
 const stackData = [22, 78];
 const stackData1 = [31, 69];
 
 const w = 35;
 const height = 7.5;
 
-var svg = d3.select("svg");
+var svg = d3.select("svg"); 
 
 svg.append("text")
   .attr("x", 273)
@@ -283,7 +284,6 @@ s1.selectAll("rect")
   .attr("height", height)
   .attr("fill", (d, i) => i === 0 ? "#fbb345" : "#feeac7");
 
-
 s2.selectAll("rect")
   .data(stackData1)
   .enter()
@@ -293,7 +293,7 @@ s2.selectAll("rect")
   .attr("height", height)
   .attr("fill", (d, i) => i === 0 ? "#fbb345" : "#feeac7");
 
-
+// Vertical line for stack separation
 svg.append("line")
   .attr("x1", 322)
   .attr("y1", 300)
@@ -301,7 +301,6 @@ svg.append("line")
   .attr("y2", 345)
   .attr("stroke", "#e3e3e9")
   .attr("stroke-width", ".7");
-
 
 function toggleStackData(s, data, label, toggleText, valueTextClass) {
     var newText = label.text() === toggleText.off ? toggleText.on : toggleText.off;
@@ -311,13 +310,11 @@ function toggleStackData(s, data, label, toggleText, valueTextClass) {
 }
 
 function swapStackColors(s) {
-  
     let rects = s.selectAll("rect").nodes();
     let colors = rects.map(rect => d3.select(rect).attr("fill"));
     d3.select(rects[0]).attr("fill", colors[1]);
     d3.select(rects[1]).attr("fill", colors[0]);
 }
-
 
 var labels = [
     svg.append("text")
@@ -341,7 +338,6 @@ var labels = [
       .text("frequently evaluate")
 ];
 
-
 [s1, s2].forEach((s, index) => {
     var data = index === 0 ? stackData : stackData1;
     var toggleText = {
@@ -350,11 +346,10 @@ var labels = [
     };
     var valueTextClass = "valueText" + index;
 
-    
     s.append("text")
       .attr("class", valueTextClass)
       .attr("x", 2.5) 
-      .attr("y", -5) 
+      .attr("y", -5)
       .text(data[0] + "%")
       .style("fill", "#e47433")
       .style("font-weight", "bold")
@@ -364,6 +359,7 @@ var labels = [
     s.on("click", () => {
         toggleStackData(s, data, labels[index], toggleText, valueTextClass);
         swapStackColors(s); 
+    });
 });
 
 
